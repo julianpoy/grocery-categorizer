@@ -1,0 +1,10 @@
+# English recipe-app ingredient lines (final-aisle truth)
+# ---------- Recipe-EN ----------
+produce____One 1-inch piece of ginger (1/2 ounces; 14g), peeled and finely grated
+canned____2 (14.5 oz) cans diced tomatoes, drained
+dairy____1 cup (240 ml) whole milk
+meat____1/2 pound boneless skinless chicken breast, cut into strips
+frozen____Frozen peas (about 1 cup)
+condiments____extra-virgin olive oil, for drizzling
+baking____1 1/2 cups (190 g) all-purpose flour, sifted
+produce____3 cloves of garlic, minced

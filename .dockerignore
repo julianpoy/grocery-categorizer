@@ -1,46 +1,11 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-*.egg-info/
-.pytest_cache/
-
-# Data files (these are large and only needed for training)
-data.txt
-data_cleaned.txt
-data_augmented.txt
-
-# Training scripts (not needed in production)
-preprocess_data.py
-augment_translations.py
-
-# Git
-.git/
-.gitignore
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Documentation
-README.md
-
-# Docker
-Dockerfile
-.dockerignore
-
-# Kubernetes
-k8s/
-*.yaml
-*.yml
-
-# OS
-.DS_Store
-Thumbs.db
+# Whitelist: exclude everything, then re-include only what the Dockerfile COPYs.
+# Keeps the torch training model, venvs, and training data out of the build context.
+*
+!requirements-production.txt
+!server.py
+!inference_onnx.py
+!text_norm.py
+!aisle_map.py
+!aisle_model_onnx/
+!NOTICE
+!LICENSE

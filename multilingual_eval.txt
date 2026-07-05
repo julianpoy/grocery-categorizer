@@ -1,0 +1,197 @@
+# Invented multilingual recipe-ingredient validation set (final-aisle truth).
+# Purpose: verify the fragment-trimming in normalize_model does not erode
+# multilingual support. Diverse cultural formatting: metric/imperial, comma
+# decimals, quantity-first vs item-first, parenthetical amounts, CJK measure
+# words, localized prep notes, and frozen/canned cues per language.
+# Format: final_aisle____item_text   (# lines and non-____ lines are ignored)
+
+# ---------- English (imperial, parenthetical, prep notes) ----------
+produce____2 ripe avocados, halved and pitted
+produce____3-4 medium carrots, peeled and diced
+dairy____1 cup (240 ml) heavy whipping cream
+dairy____2 large eggs, lightly beaten
+meat____1 lb ground beef (80/20)
+seafood____1 lb wild-caught salmon fillet, skin on
+baking____2 1/4 cups all-purpose flour, sifted
+baking____1 1/2 cups (190 g) granulated sugar
+spices____1 tsp smoked paprika
+condiments____3 tbsp extra-virgin olive oil, divided
+grocery____1 cup dry green lentils, rinsed
+bakery____4 brioche buns, split
+beverages____2 cups cold brew coffee
+liquor____1/2 cup dry white wine
+
+# ---------- Spanish (metric, "de", item context) ----------
+produce____3 dientes de ajo picados
+produce____2 tomates maduros, cortados en cubos
+dairy____250 ml de leche entera
+meat____500 g de carne picada de ternera
+baking____200 g de harina de trigo
+spices____1 cucharadita de pimentón dulce
+condiments____2 cucharadas de aceite de oliva virgen extra
+grocery____1 taza de arroz basmati
+bakery____4 bollos de pan
+beverages____1 litro de zumo de naranja
+liquor____una botella de vino tinto
+nonfood____papel de aluminio
+
+# ---------- French ----------
+produce____1 oignon jaune, émincé
+produce____2 gousses d'ail, hachées
+dairy____200 g de beurre doux
+meat____4 cuisses de poulet
+seafood____2 filets de cabillaud
+baking____250 g de farine de blé
+spices____1 cuillère à café de curcuma
+condiments____3 cuillères à soupe d'huile d'olive
+bakery____1 baguette tradition
+beverages____50 cl de jus de pomme
+liquor____1 bouteille de vin rouge
+
+# ---------- German (item context, EL/TL measures) ----------
+produce____2 rote Paprika, gewürfelt
+dairy____1 Becher Sahne (200 g)
+dairy____250 g Magerquark
+meat____500 g Hackfleisch, gemischt
+baking____300 g Weizenmehl, gesiebt
+spices____1 TL gemahlener Kreuzkümmel
+condiments____2 EL Sonnenblumenöl
+bakery____4 Brötchen
+beverages____500 ml Apfelsaft
+nonfood____1 Rolle Küchenpapier
+
+# ---------- Italian (comma decimals) ----------
+produce____2 zucchine medie, affettate
+dairy____125 g di mozzarella
+meat____300 g di macinato di manzo
+baking____200 g di farina 00
+spices____1 cucchiaino di origano secco
+condiments____2 cucchiai di olio extravergine d'oliva
+bakery____4 panini
+beverages____0,5 litri di succo di mela
+
+# ---------- Portuguese ----------
+produce____2 cebolas médias picadas
+dairy____200 ml de leite integral
+meat____500 g de carne moída
+baking____250 g de farinha de trigo
+condiments____2 colheres de sopa de azeite
+spices____1 colher de chá de canela em pó
+
+# ---------- Dutch ----------
+produce____1 rode ui, fijngesneden
+dairy____250 ml volle melk
+meat____400 g rundergehakt
+baking____200 g bloem
+spices____1 theelepel kaneel
+
+# ---------- Polish ----------
+produce____2 marchewki, starte
+dairy____200 ml śmietany
+meat____500 g mielonego wołowego
+baking____300 g mąki pszennej
+spices____1 łyżeczka papryki słodkiej
+
+# ---------- Russian ----------
+produce____2 средних луковицы, нарезать
+dairy____200 г сливочного масла
+meat____500 г говяжьего фарша
+baking____300 г пшеничной муки
+spices____1 чайная ложка молотого чёрного перца
+
+# ---------- Ukrainian ----------
+produce____3 зубчики часнику, подрібнені
+dairy____250 мл молока
+baking____2 склянки борошна
+
+# ---------- Chinese (Simplified, measure words) ----------
+produce____2根胡萝卜，切丝
+dairy____250毫升全脂牛奶
+meat____500克猪肉馅
+seafood____2条鲈鱼
+baking____300克中筋面粉
+spices____1茶匙五香粉
+condiments____2汤匙生抽
+
+# ---------- Japanese (item-first, 大さじ/個) ----------
+produce____玉ねぎ 1個、みじん切り
+produce____しょうが 小さじ1
+dairy____牛乳 200ml
+meat____鶏もも肉 300g
+baking____薄力粉 200g
+condiments____しょうゆ 大さじ2
+spices____黒こしょう 少々
+
+# ---------- Korean ----------
+produce____양파 1개, 다진 것
+meat____소고기 300g
+spices____고춧가루 1큰술
+condiments____참기름 2큰술
+
+# ---------- Arabic ----------
+produce____2 حبة طماطم مقطعة
+meat____500 غرام لحم مفروم
+baking____2 كوب دقيق
+spices____ملعقة صغيرة كمون
+
+# ---------- Hindi ----------
+produce____2 प्याज़ बारीक कटा हुआ
+spices____1 छोटा चम्मच हल्दी पाउडर
+baking____2 कप मैदा
+dairy____1 कप दही
+
+# ---------- Greek ----------
+produce____2 ντομάτες ψιλοκομμένες
+dairy____200 γρ. φέτα
+condiments____3 κουταλιές ελαιόλαδο
+
+# ---------- Turkish ----------
+produce____2 adet domates, doğranmış
+dairy____200 gr yoğurt
+meat____500 gr kıyma
+spices____1 tatlı kaşığı pul biber
+
+# ---------- Swedish (comma decimals, dl) ----------
+dairy____2,5 dl mjölk
+baking____3 dl vetemjöl
+produce____1 gul lök, hackad
+
+# ---------- Finnish ----------
+dairy____2 dl kermaa
+produce____2 porkkanaa, raastettuna
+
+# ---------- Vietnamese ----------
+produce____2 củ hành tím, băm nhỏ
+condiments____2 muỗng canh nước mắm
+
+# ---------- Thai ----------
+produce____กระเทียม 3 กลีบ สับ
+condiments____น้ำปลา 2 ช้อนโต๊ะ
+
+# ---------- Indonesian ----------
+produce____2 buah tomat, potong dadu
+spices____1 sendok teh kunyit bubuk
+
+# ---------- FROZEN cues (multilingual) -> frozen ----------
+frozen____1 cup frozen peas
+frozen____500 g de guisantes congelados
+frozen____épinards surgelés, 300 g
+frozen____Tiefkühl-Blattspinat 300 g
+frozen____spinaci surgelati
+frozen____冷凍ほうれん草 200g
+frozen____mrożony groszek zielony
+frozen____замороженная малина 400 г
+frozen____fryst spenat
+frozen____diepvries frambozen
+
+# ---------- CANNED cues (multilingual) -> canned ----------
+canned____1 (15 oz) can chickpeas, drained and rinsed
+canned____atún en lata
+canned____tomates pelés en conserve
+canned____Kichererbsen aus der Dose
+canned____fagioli cannellini in scatola
+canned____ツナ缶 1缶
+canned____罐装番茄 400克
+canned____fasola czerwona z puszki
+canned____консервированная кукуруза, 1 банка
+canned____2 tins of coconut milk

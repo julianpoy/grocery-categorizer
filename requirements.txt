@@ -1,11 +1,18 @@
 torch>=2.0.0
 sentence-transformers>=2.2.0
+transformers>=4.30.0
 pandas>=1.5.0
 numpy>=1.24.0
+scikit-learn>=1.3.0
 
 fastapi>=0.104.0
 uvicorn[standard]>=0.24.0
 pydantic>=2.0.0
 
-transformers>=4.30.0
+# ONNX export + torch-free serving
+onnx>=1.17.0
+onnxruntime>=1.20.0
+onnxscript>=0.1.0
+tokenizers>=0.20.0
+
 tqdm>=4.65.0

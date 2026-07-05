@@ -1,4 +1,12 @@
 venv
+.venv
 __pycache__
 grocery_model
+aisle_model
+aisle_model_onnx
+bakeoff
+*.onnx
+*.onnx.data
+*.log
+*.sh
 

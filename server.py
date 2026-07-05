@@ -1,13 +1,19 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator, ConfigDict
-from typing import List, Optional
+from typing import List
 import uvicorn
 import logging
 from contextlib import asynccontextmanager
+import os
 import time
 
-from inference import GroceryCategorizer
+# Cap CPU threads BEFORE importing the model. Un-capped, onnxruntime/OpenMP spawn
+# one thread per core, which slows single short-sequence requests on many-core
+# hosts. Override via OMP_NUM_THREADS.
+os.environ.setdefault("OMP_NUM_THREADS", "4")
+
+from inference_onnx import AisleCategorizer
 
 logging.basicConfig(
     level=logging.INFO,
@@ -18,7 +24,7 @@ logger = logging.getLogger(__name__)
 # Global model instance
 categorizer = None
 
-MODEL_PATH = './grocery_model'
+MODEL_PATH = './aisle_model_onnx'
 MAX_ITEMS_PER_REQUEST = 50
 
 
@@ -63,11 +69,13 @@ class CategoryResult(BaseModel):
     )
     
     item: str = Field(..., description="Original item text")
-    category: str = Field(..., description="Predicted category")
+    category: str = Field(..., description="Predicted aisle (one of 14)")
     confidence: float = Field(..., description="Confidence score (0.0-1.0)")
-    probabilities: Optional[dict] = Field(
-        default=None,
-        description="Probability scores for all categories"
+    base: str = Field(..., description="Base food-type aisle from the base head")
+    state: str = Field(..., description="Preservation state from the state head: none|frozen|canned")
+    uncertain: bool = Field(
+        default=False,
+        description="Advisory only: True when calibrated confidence is below threshold. A category is always returned regardless."
     )
 
 
@@ -116,9 +124,10 @@ async def lifespan(app: FastAPI):
     logger.info(f"Loading model from {MODEL_PATH}")
     
     try:
-        categorizer = GroceryCategorizer(MODEL_PATH)
+        categorizer = AisleCategorizer(MODEL_PATH)
         logger.info("Model loaded successfully")
-        logger.info(f"Categories: {list(categorizer.id2label.values())}")
+        from aisle_map import FINAL_AISLES
+        logger.info(f"Aisles: {FINAL_AISLES}")
     except Exception as e:
         logger.error(f"Failed to load model: {e}")
         raise
@@ -181,12 +190,10 @@ async def health_check():
 @app.post("/categorize", response_model=CategorizeResponse, status_code=status.HTTP_200_OK)
 async def categorize_items(request: CategorizeRequest):
     """
-    Supports 21 languages: English, Spanish, French, German, Italian, Portuguese,
-    Dutch, Danish, Swedish, Finnish, Polish, Russian, Ukrainian, Romanian, Hungarian,
-    Greek, Hebrew, Lithuanian, Basque, Chinese (Simplified), Japanese
-    
-    Categories: produce, dairy, meat, bakery, grocery, liquor, seafood, nonfood,
-    frozen, canned, beverages
+    Multilingual: item text may be in any language.
+
+    Categories (14 aisles): produce, dairy, meat, seafood, bakery, baking,
+    spices, grocery, condiments, beverages, liquor, nonfood, frozen, canned
     """
     if categorizer is None:
         raise HTTPException(
@@ -203,15 +210,13 @@ async def categorize_items(request: CategorizeRequest):
         
         results = []
         for item, pred in zip(request.items, predictions):
-            category = pred['category']
-            confidence = pred['confidence']
-            probabilities = pred['probabilities']
-            
             results.append(CategoryResult(
                 item=item,
-                category=category,
-                confidence=confidence,
-                probabilities=probabilities
+                category=pred['category'],
+                confidence=pred['confidence'],
+                base=pred['base'],
+                state=pred['state'],
+                uncertain=pred.get('uncertain', False),
             ))
         
         processing_time_ms = (time.time() - start_time) * 1000
@@ -239,8 +244,9 @@ async def get_categories():
             detail="Model not loaded"
         )
     
+    from aisle_map import FINAL_AISLES
     return {
-        "categories": list(categorizer.id2label.values()),
+        "categories": FINAL_AISLES,
     }
 
 

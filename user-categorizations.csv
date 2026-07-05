@@ -1,0 +1,35 @@
+#############################################################################
+## PLACEHOLDER - THIS IS NOT REAL DATA AND IS NOT VALID CSV DATA.           ##
+##                                                                          ##
+## This CSV should be replaced by a human-generated training set of some    ##
+## type: real user category overrides (items a human filed into an aisle).  ##
+## As shipped, the real-override build steps will read this comment block   ##
+## as the header row and produce EMPTY output - that is intentional. Replace ##
+## this file (or point the scripts elsewhere) before a from-scratch rebuild. ##
+##                                                                          ##
+## FORMAT: a standard CSV with a header row and at least these two columns: ##
+##   title          the raw item / ingredient text, in any language         ##
+##                  e.g. "2 lbs chicken breast", "leche entera", "冷凍餃子"   ##
+##   categoryTitle  the human-chosen category name. Mapped to one of the 14  ##
+##                  aisles by aisle_map.user_cat_to_aisle() - see the _U     ##
+##                  dict in aisle_map.py for accepted names/synonyms         ##
+##                  (produce, dairy, meat, seafood, bakery, baking, spices,  ##
+##                  grocery, condiments, beverages, liquor, nonfood,         ##
+##                  frozen, canned, plus many localized synonyms).          ##
+##                                                                          ##
+## Read by: build_test.py (title + categoryTitle) and build_universe.py     ##
+## (title only). To use real data WITHOUT editing this file, point at it:   ##
+##   USER_CATEGORIZATIONS=/path/to/real.csv python build_test.py            ##
+##                                                                          ##
+## Delete this whole comment block and supply real rows below.              ##
+## The header + rows below are a format example only (currently inert):     ##
+#############################################################################
+title,categoryTitle
+2 lbs chicken breast,meat
+1 can black beans,canned
+leche entera,dairy
+frozen peas,frozen
+extra virgin olive oil,condiments
+all-purpose flour,baking
+ground cinnamon,spices
+toilet paper,nonfood
